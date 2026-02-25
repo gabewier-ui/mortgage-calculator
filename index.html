@@ -1,82 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mortgage Payment & Interest Comparison Tool</title>
-  <meta name="description" content="Compare mortgage rates and see total interest paid. Simple loan comparison calculator to understand real cost differences.">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 20px;
-      background-color: #f8f8f8;
-    }
-    h1 {
-      text-align: center;
-    }
-    .card {
-      background: white;
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      font-size: 16px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background: black;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    .result {
-      margin-top: 15px;
-      font-weight: bold;
-      line-height: 1.6;
-    }
-    .big {
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Rate Comparison Tool</title>
+<meta name="description" content="Compare two mortgage interest rates and see total payment, monthly cost, and lifetime savings instantly. Simple and fast loan comparison calculator.">
 
-<h1>Mortgage Comparison Tool</h1>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  max-width: 700px;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.box {
+  background: #f9fafb;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.highlight {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #1a73e8;
+}
+
+@media (max-width: 600px) {
+  .results {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<h1>Mortgage Rate Comparison</h1>
 
 <div class="card">
-  <label>Loan Amount ($)</label>
+  <label>Loan Amount</label>
   <input type="number" id="loan" value="250000">
 
-  <label>Interest Rate 1 (%)</label>
+  <label>Rate 1 (%)</label>
   <input type="number" id="rate1" value="6" step="0.01">
 
-  <label>Interest Rate 2 (%)</label>
+  <label>Rate 2 (%)</label>
   <input type="number" id="rate2" value="7.75" step="0.01">
 
-  <label>Loan Term (years)</label>
+  <label>Term (Years)</label>
   <input type="number" id="years" value="30">
 
-  <button onclick="calculate()">Compare</button>
-
-  <div class="result" id="output"></div>
+  <div id="output" class="highlight"></div>
 </div>
 
 <div class="card">
-  <h2>Why This Matters</h2>
+  <h2>Why This Tool Is Different</h2>
   <p>
-    Small interest rate differences can cost tens of thousands of dollars over the life of a loan.
-    This tool shows the real total cost, not just the monthly payment.
+    Most calculators only show monthly payments. This tool shows total lifetime cost and real savings between rates so you can make better decisions.
   </p>
+</div>
+
 </div>
 
 <script>
@@ -87,20 +105,24 @@ function calculate() {
   const years = parseFloat(document.getElementById('years').value);
   const months = years * 12;
 
-  function totalPaid(rate) {
+  function total(rate) {
     const monthly = loan * rate / (1 - Math.pow(1 + rate, -months));
     return monthly * months;
   }
 
-  const total1 = totalPaid(rate1);
-  const total2 = totalPaid(rate2);
-  const difference = total2 - total1;
+  const total1 = total(rate1);
+  const total2 = total(rate2);
+  const savings = total2 - total1;
 
   document.getElementById('output').innerHTML =
-    "<span class='big'>Total Paid at Rate 1:</span> $" + total1.toFixed(0) + "<br>" +
-    "<span class='big'>Total Paid at Rate 2:</span> $" + total2.toFixed(0) + "<br><br>" +
-    "<span class='big'>Difference in Total Cost:</span> $" + difference.toFixed(0);
+    "Lifetime Savings: $" + savings.toFixed(0);
 }
+
+document.querySelectorAll("input").forEach(input => {
+  input.addEventListener("input", calculate);
+});
+
+calculate();
 </script>
 
 </body>
