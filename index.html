@@ -8,6 +8,39 @@
 
 <meta name="description" content="Use this refinance break-even calculator to compare your current mortgage rate with a new rate. Instantly see monthly savings, total savings, and how long it takes to break even.">
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a refinance break-even point?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The break-even point is the number of months it takes for your monthly savings to recover the closing costs of refinancing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I know if refinancing is worth it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If you plan to stay in your home longer than the break-even period, refinancing may save you money overall."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a good refinance break-even time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Many homeowners prefer a break-even period under 24 to 36 months, but it depends on their financial goals and how long they plan to stay in the home."
+      }
+    }
+  ]
+}
+</script>
+
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -56,6 +89,13 @@ input {
 .good { color: green; }
 .bad { color: red; }
 
+h2 {
+  margin-top: 0;
+}
+
+h3 {
+  margin-bottom: 5px;
+}
 </style>
 </head>
 
@@ -88,24 +128,44 @@ input {
   <h2>How the Refinance Break-Even Calculation Works</h2>
 
   <p>
-    Refinancing only makes sense when your monthly savings
-    outweigh your closing costs over time.
+    Refinancing only makes sense when your monthly savings outweigh your closing costs over time.
   </p>
 
   <p>
-    The break-even point tells you how many months it will take
-    to recover the cost of refinancing.
+    The break-even point tells you how many months it will take to recover the cost of refinancing.
   </p>
 
   <p>
-    If you plan to stay in your home longer than the break-even
-    period, refinancing may save you money.
+    If you plan to stay in your home longer than the break-even period,
+    refinancing may save you money.
   </p>
 
   <p>
-    Even a small interest rate reduction can result in
-    significant long-term savings over the life of the loan.
+    Even small interest rate reductions can create significant long-term savings.
   </p>
+</div>
+
+<div class="card">
+  <h2>Frequently Asked Questions</h2>
+
+  <h3>What is a refinance break-even point?</h3>
+  <p>
+    The break-even point is the number of months it takes for your monthly savings
+    to recover the closing costs of refinancing.
+  </p>
+
+  <h3>How do I know if refinancing is worth it?</h3>
+  <p>
+    If you plan to stay in your home longer than the break-even period,
+    refinancing may save you money overall.
+  </p>
+
+  <h3>What is a good refinance break-even time?</h3>
+  <p>
+    Many homeowners prefer a break-even period under 24 to 36 months,
+    depending on their financial goals.
+  </p>
+
 </div>
 
 </div>
@@ -139,7 +199,7 @@ function calculate() {
 
     message =
       "<span class='good'>Monthly Savings: $" + monthlySavings.toFixed(0) + "</span><br>" +
-      "Break-Even Point: " + breakEvenMonths.toFixed(0) + " months<br>";
+      "Break-Even Point: " + breakEvenMonths.toFixed(0) + " months";
   }
 
   document.getElementById('output').innerHTML = message;
