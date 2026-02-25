@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Refinance Break-Even & Savings Calculator</title>
-<meta name="description" content="See if refinancing makes sense. Compare current vs new mortgage rates, calculate break-even point, total savings, and monthly payment difference instantly.">
+
+<title>Refinance Break-Even Calculator | See If Refinancing Saves Money</title>
+
+<meta name="description" content="Use this refinance break-even calculator to compare your current mortgage rate with a new rate. Instantly see monthly savings, total savings, and how long it takes to break even.">
 
 <style>
 body {
@@ -15,8 +17,15 @@ body {
   display: flex;
   justify-content: center;
 }
-.container { max-width: 750px; width: 100%; }
-h1 { text-align: center; }
+
+.container {
+  max-width: 800px;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
 
 .card {
   background: white;
@@ -26,10 +35,14 @@ h1 { text-align: center; }
   margin-bottom: 20px;
 }
 
+label {
+  font-weight: bold;
+}
+
 input {
   width: 100%;
   padding: 10px;
-  margin: 8px 0;
+  margin: 8px 0 15px 0;
   font-size: 16px;
 }
 
@@ -37,6 +50,7 @@ input {
   font-size: 18px;
   font-weight: bold;
   margin-top: 10px;
+  line-height: 1.6;
 }
 
 .good { color: green; }
@@ -46,9 +60,10 @@ input {
 </head>
 
 <body>
+
 <div class="container">
 
-<h1>Refinance Decision Tool</h1>
+<h1>Refinance Break-Even Calculator</h1>
 
 <div class="card">
   <label>Current Loan Balance ($)</label>
@@ -70,10 +85,26 @@ input {
 </div>
 
 <div class="card">
-  <h2>How This Helps</h2>
+  <h2>How the Refinance Break-Even Calculation Works</h2>
+
   <p>
-    Refinancing only makes sense if your long-term savings exceed closing costs.
-    This tool calculates your monthly savings, total interest difference, and break-even point.
+    Refinancing only makes sense when your monthly savings
+    outweigh your closing costs over time.
+  </p>
+
+  <p>
+    The break-even point tells you how many months it will take
+    to recover the cost of refinancing.
+  </p>
+
+  <p>
+    If you plan to stay in your home longer than the break-even
+    period, refinancing may save you money.
+  </p>
+
+  <p>
+    Even a small interest rate reduction can result in
+    significant long-term savings over the life of the loan.
   </p>
 </div>
 
@@ -81,31 +112,34 @@ input {
 
 <script>
 function calculate() {
+
   const loan = parseFloat(document.getElementById('loan').value);
   const rate1 = parseFloat(document.getElementById('rate1').value) / 100 / 12;
   const rate2 = parseFloat(document.getElementById('rate2').value) / 100 / 12;
   const years = parseFloat(document.getElementById('years').value);
   const closing = parseFloat(document.getElementById('closing').value);
+
   const months = years * 12;
 
   function monthlyPayment(rate) {
     return loan * rate / (1 - Math.pow(1 + rate, -months));
   }
 
-  const pay1 = monthlyPayment(rate1);
-  const pay2 = monthlyPayment(rate2);
+  const currentPayment = monthlyPayment(rate1);
+  const newPayment = monthlyPayment(rate2);
 
-  const monthlySavings = pay1 - pay2;
-
-  let breakEven = monthlySavings > 0 ? closing / monthlySavings : null;
+  const monthlySavings = currentPayment - newPayment;
 
   let message = "";
 
   if (monthlySavings <= 0) {
     message = "<span class='bad'>Refinancing does not reduce your monthly payment.</span>";
   } else {
-    message = "<span class='good'>Monthly Savings: $" + monthlySavings.toFixed(0) + "</span><br>";
-    message += "Break-Even Point: " + breakEven.toFixed(0) + " months";
+    const breakEvenMonths = closing / monthlySavings;
+
+    message =
+      "<span class='good'>Monthly Savings: $" + monthlySavings.toFixed(0) + "</span><br>" +
+      "Break-Even Point: " + breakEvenMonths.toFixed(0) + " months<br>";
   }
 
   document.getElementById('output').innerHTML = message;
