@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mortgage Rate Comparison Tool</title>
-<meta name="description" content="Compare two mortgage interest rates and see total payment, monthly cost, and lifetime savings instantly. Simple and fast loan comparison calculator.">
+<title>Refinance Break-Even & Savings Calculator</title>
+<meta name="description" content="See if refinancing makes sense. Compare current vs new mortgage rates, calculate break-even point, total savings, and monthly payment difference instantly.">
 
 <style>
 body {
@@ -15,15 +15,8 @@ body {
   display: flex;
   justify-content: center;
 }
-
-.container {
-  max-width: 700px;
-  width: 100%;
-}
-
-h1 {
-  text-align: center;
-}
+.container { max-width: 750px; width: 100%; }
+h1 { text-align: center; }
 
 .card {
   background: white;
@@ -40,58 +33,47 @@ input {
   font-size: 16px;
 }
 
-.results {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-.box {
-  background: #f9fafb;
-  padding: 15px;
-  border-radius: 10px;
-}
-
-.highlight {
+.result {
   font-size: 18px;
   font-weight: bold;
   margin-top: 10px;
-  color: #1a73e8;
 }
 
-@media (max-width: 600px) {
-  .results {
-    grid-template-columns: 1fr;
-  }
-}
+.good { color: green; }
+.bad { color: red; }
+
 </style>
 </head>
 
 <body>
 <div class="container">
 
-<h1>Mortgage Rate Comparison</h1>
+<h1>Refinance Decision Tool</h1>
 
 <div class="card">
-  <label>Loan Amount</label>
+  <label>Current Loan Balance ($)</label>
   <input type="number" id="loan" value="250000">
 
-  <label>Rate 1 (%)</label>
-  <input type="number" id="rate1" value="6" step="0.01">
+  <label>Current Interest Rate (%)</label>
+  <input type="number" id="rate1" value="7" step="0.01">
 
-  <label>Rate 2 (%)</label>
-  <input type="number" id="rate2" value="7.75" step="0.01">
+  <label>New Interest Rate (%)</label>
+  <input type="number" id="rate2" value="6" step="0.01">
 
-  <label>Term (Years)</label>
+  <label>Loan Term (Years)</label>
   <input type="number" id="years" value="30">
 
-  <div id="output" class="highlight"></div>
+  <label>Estimated Closing Costs ($)</label>
+  <input type="number" id="closing" value="5000">
+
+  <div id="output" class="result"></div>
 </div>
 
 <div class="card">
-  <h2>Why This Tool Is Different</h2>
+  <h2>How This Helps</h2>
   <p>
-    Most calculators only show monthly payments. This tool shows total lifetime cost and real savings between rates so you can make better decisions.
+    Refinancing only makes sense if your long-term savings exceed closing costs.
+    This tool calculates your monthly savings, total interest difference, and break-even point.
   </p>
 </div>
 
@@ -103,19 +85,30 @@ function calculate() {
   const rate1 = parseFloat(document.getElementById('rate1').value) / 100 / 12;
   const rate2 = parseFloat(document.getElementById('rate2').value) / 100 / 12;
   const years = parseFloat(document.getElementById('years').value);
+  const closing = parseFloat(document.getElementById('closing').value);
   const months = years * 12;
 
-  function total(rate) {
-    const monthly = loan * rate / (1 - Math.pow(1 + rate, -months));
-    return monthly * months;
+  function monthlyPayment(rate) {
+    return loan * rate / (1 - Math.pow(1 + rate, -months));
   }
 
-  const total1 = total(rate1);
-  const total2 = total(rate2);
-  const savings = total2 - total1;
+  const pay1 = monthlyPayment(rate1);
+  const pay2 = monthlyPayment(rate2);
 
-  document.getElementById('output').innerHTML =
-    "Lifetime Savings: $" + savings.toFixed(0);
+  const monthlySavings = pay1 - pay2;
+
+  let breakEven = monthlySavings > 0 ? closing / monthlySavings : null;
+
+  let message = "";
+
+  if (monthlySavings <= 0) {
+    message = "<span class='bad'>Refinancing does not reduce your monthly payment.</span>";
+  } else {
+    message = "<span class='good'>Monthly Savings: $" + monthlySavings.toFixed(0) + "</span><br>";
+    message += "Break-Even Point: " + breakEven.toFixed(0) + " months";
+  }
+
+  document.getElementById('output').innerHTML = message;
 }
 
 document.querySelectorAll("input").forEach(input => {
