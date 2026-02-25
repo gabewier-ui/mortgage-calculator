@@ -6,7 +6,7 @@
 
 <title>Refinance Break-Even Calculator | See If Refinancing Saves Money</title>
 
-<meta name="description" content="Use this refinance break-even calculator to compare your current mortgage rate with a new rate. Instantly see monthly savings, total savings, and how long it takes to break even.">
+<meta name="description" content="Use this refinance break-even calculator to compare your current mortgage rate with a new rate. Instantly see monthly savings, total savings, closing costs, and break-even time.">
 
 <script type="application/ld+json">
 {
@@ -23,18 +23,10 @@
     },
     {
       "@type": "Question",
-      "name": "How do I know if refinancing is worth it?",
+      "name": "What costs are involved in refinancing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "If you plan to stay in your home longer than the break-even period, refinancing may save you money overall."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a good refinance break-even time?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Many homeowners prefer a break-even period under 24 to 36 months, but it depends on their financial goals and how long they plan to stay in the home."
+        "text": "Refinancing typically includes closing costs such as origination fees, appraisal fees, title fees, underwriting fees, and recording fees, usually 2% to 5% of the loan amount."
       }
     }
   ]
@@ -43,58 +35,77 @@
 
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
   margin: 0;
-  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
   display: flex;
   justify-content: center;
+  padding: 30px;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 850px;
   width: 100%;
 }
 
 h1 {
   text-align: center;
+  margin-bottom: 30px;
+  color: #ffffff;
 }
 
 .card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
+  background: #1e293b;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  margin-bottom: 22px;
 }
 
 label {
   font-weight: bold;
+  color: #cbd5e1;
 }
 
 input {
   width: 100%;
-  padding: 10px;
-  margin: 8px 0 15px 0;
+  padding: 12px;
+  margin: 8px 0 16px 0;
   font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: white;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3b82f6;
 }
 
 .result {
   font-size: 18px;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 12px;
   line-height: 1.6;
 }
 
-.good { color: green; }
-.bad { color: red; }
+.good { color: #22c55e; }
+.bad { color: #ef4444; }
 
 h2 {
   margin-top: 0;
+  color: #ffffff;
 }
 
-h3 {
-  margin-bottom: 5px;
+ul {
+  margin-top: 10px;
+  color: #cbd5e1;
+}
+
+p {
+  color: #cbd5e1;
 }
 </style>
 </head>
@@ -125,47 +136,39 @@ h3 {
 </div>
 
 <div class="card">
-  <h2>How the Refinance Break-Even Calculation Works</h2>
-
+  <h2>How the Break-Even Calculation Works</h2>
   <p>
-    Refinancing only makes sense when your monthly savings outweigh your closing costs over time.
+    Refinancing only makes sense when your monthly savings
+    exceed your closing costs over time.
   </p>
-
   <p>
-    The break-even point tells you how many months it will take to recover the cost of refinancing.
+    The break-even point shows how many months it takes
+    to recover the upfront cost of refinancing.
   </p>
+</div>
 
+<div class="card">
+  <h2>What Costs Are Involved in Refinancing?</h2>
   <p>
-    If you plan to stay in your home longer than the break-even period,
-    refinancing may save you money.
+    Most refinances include closing costs ranging from 2% to 5% of the loan amount.
   </p>
-
-  <p>
-    Even small interest rate reductions can create significant long-term savings.
-  </p>
+  <ul>
+    <li>Loan origination fees</li>
+    <li>Appraisal fees</li>
+    <li>Title and settlement fees</li>
+    <li>Underwriting fees</li>
+    <li>Recording fees</li>
+  </ul>
 </div>
 
 <div class="card">
   <h2>Frequently Asked Questions</h2>
 
-  <h3>What is a refinance break-even point?</h3>
-  <p>
-    The break-even point is the number of months it takes for your monthly savings
-    to recover the closing costs of refinancing.
-  </p>
+  <p><strong>What is a good break-even time?</strong><br>
+  Many homeowners prefer under 24–36 months.</p>
 
-  <h3>How do I know if refinancing is worth it?</h3>
-  <p>
-    If you plan to stay in your home longer than the break-even period,
-    refinancing may save you money overall.
-  </p>
-
-  <h3>What is a good refinance break-even time?</h3>
-  <p>
-    Many homeowners prefer a break-even period under 24 to 36 months,
-    depending on their financial goals.
-  </p>
-
+  <p><strong>Does a lower rate always mean savings?</strong><br>
+  Not always — closing costs must be considered.</p>
 </div>
 
 </div>
