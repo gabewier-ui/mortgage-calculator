@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mortgage Interest Difference Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Mortgage Interest Difference Calculator</h2>
+
+<label>Loan Amount ($)</label>
+<input type="number" id="loan" value="250000">
+
+<label>Interest Rate 1 (%)</label>
+<input type="number" id="rate1" value="6" step="0.01">
+
+<label>Interest Rate 2 (%)</label>
+<input type="number" id="rate2" value="7.75" step="0.01">
+
+<label>Loan Term (years)</label>
+<input type="number" id="years" value="30">
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result" id="output"></div>
+
+<script>
+function calculate() {
+  const loan = parseFloat(document.getElementById('loan').value);
+  const rate1 = parseFloat(document.getElementById('rate1').value) / 100 / 12;
+  const rate2 = parseFloat(document.getElementById('rate2').value) / 100 / 12;
+  const years = parseFloat(document.getElementById('years').value);
+  const months = years * 12;
+
+  function totalPaid(rate) {
+    const monthly = loan * rate / (1 - Math.pow(1 + rate, -months));
+    return monthly * months;
+  }
+
+  const total1 = totalPaid(rate1);
+  const total2 = totalPaid(rate2);
+  const difference = total2 - total1;
+
+  document.getElementById('output').innerHTML =
+    "Total Paid at Rate 1: $" + total1.toFixed(0) + "<br>" +
+    "Total Paid at Rate 2: $" + total2.toFixed(0) + "<br><br>" +
+    "Difference in Interest: $" + difference.toFixed(0);
+}
+</script>
+
+</body>
+</html>
